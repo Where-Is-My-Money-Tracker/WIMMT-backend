@@ -6,6 +6,8 @@ const fakeRequest = require('supertest');
 const app = require('../lib/app');
 const client = require('../lib/client');
 
+const categories = require('../data/categories');
+
 describe('app routes', () => {
   describe('routes', () => {
     let token;
@@ -22,15 +24,34 @@ describe('app routes', () => {
         });
       
         token = signInData.body.token; // eslint-disable-line
-    }, 10000);
-    test('initial test', () => {
-      const number = 1;
-      const expectation = 1;
+    }, 10000);  
+    
+    test('GET /categories for John', async()=> {
+      const expectation = categories;
+      const data = await fakeRequest(app)
+        .get('/api/categories')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
 
-      expect(number).toEqual(expectation);
-        
-    });  
-      
+      expect(data.body).toEqual(expectation);
+    }); 
+
+    test('POST /categories for John', async()=> {
+      const expectation = {
+        parent_id: 4, description: 'dog food', user_id: 1
+      };
+      const data = await fakeRequest(app)
+        .post('/api/categories')
+        .send(expectation)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      const { id, ...rest } = data.body;
+      expect(rest).toEqual(expectation);
+      expect(id).toBeGreaterThan(0);
+    });
+
     afterAll(done => {
       return client.end(done);
     });
