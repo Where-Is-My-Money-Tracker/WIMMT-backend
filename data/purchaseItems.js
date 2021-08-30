@@ -43,7 +43,7 @@ module.exports = [
     id: 6,  
     user_id: 1,
     description: 'Karaoke Machine',
-    category_id: 11,
+    category_id: 10,
     timestamp: 1630297328170,
     cost: 95.00
   },
