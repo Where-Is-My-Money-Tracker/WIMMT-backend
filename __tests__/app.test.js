@@ -21,9 +21,16 @@ describe('app routes', () => {
           password: '1234'
         });
       
-      token = signInData.body.token; // eslint-disable-line
+        token = signInData.body.token; // eslint-disable-line
     }, 10000);
-  
+    test('initial test', () => {
+      const number = 1;
+      const expectation = 1;
+
+      expect(number).toEqual(expectation);
+        
+    });  
+      
     afterAll(done => {
       return client.end(done);
     });
