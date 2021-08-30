@@ -176,6 +176,38 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
+    test('POST /recurring new subscription for john', async() => {
+
+      const expectation = {
+        id: 3,
+        user_id: 1,
+        description: 'Mens health magazine',
+        cost: '$39.96',
+        category_id: 9,
+        frequency: 'annual',
+        start_timestamp: '1630297328170',
+        stop_timestamp: '1630297328170'
+      };
+      const newRecurringPurchase = {
+        user_id: 1,
+        description: 'Mens health magazine',
+        cost: '$39.96',
+        category_id: 9,
+        frequency: 'annual',
+        start_timestamp: 1630297328170,
+        stop_timestamp: 1630297328170
+      };
+
+      const data = await fakeRequest(app)
+        .post('/api/recurring')
+        .send(newRecurringPurchase)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
     afterAll(done => {
       return client.end(done);
     });
