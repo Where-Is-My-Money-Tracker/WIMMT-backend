@@ -51,7 +51,7 @@ async function run() {
           INSERT INTO recurring (cost, description, start_timestamp, stop_timestamp, frequency, category_id, user_id)
           VALUES ($1, $2, $3, $4, $5, $6, $7);
         `,
-        [recurring.cost, recurring.description, recurring.start, recurring.stop, recurring.frequency, recurring.category_id, recurring.user_id]);
+        [recurring.cost, recurring.description, recurring.start_timestamp, recurring.stop_timestamp, recurring.frequency, recurring.category_id, recurring.user_id]);
       })
     );
     
