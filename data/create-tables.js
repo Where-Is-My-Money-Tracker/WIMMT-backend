@@ -19,7 +19,7 @@ async function run() {
       );           
       CREATE TABLE categories (
         id SERIAL PRIMARY KEY NOT NULL,
-        name VARCHAR(512) NOT NULL,
+        description VARCHAR(512) NOT NULL,
         user_id INTEGER NOT NULL REFERENCES users(id),
         parent_id INTEGER
       );
