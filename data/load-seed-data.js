@@ -29,7 +29,7 @@ async function run() {
     await Promise.all(
       categoriesData.map(cat => {
         return client.query(`
-          INSERT INTO categories (name, user_id, parent_id)
+          INSERT INTO categories (description, user_id, parent_id)
           VALUES ($1, $2, $3);
         `,
         [cat.description, cat.user_id, cat.parent_id]);
