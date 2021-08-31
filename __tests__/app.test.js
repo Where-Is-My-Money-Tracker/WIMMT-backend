@@ -208,6 +208,36 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
+    test('PUT /recurring updates scientific american cost', async() => {
+      const updatedRecurringPurchase = {
+        user_id: 1,
+        description: 'Scientific American',
+        cost: '$4.00',
+        category_id: 9,
+        frequency: 'monthly',
+        start_timestamp: 1630297328170, 
+        stop_timestamp: 1630297328170
+      };
+      const expectation = {
+        id: 2,
+        user_id: 1,
+        description: 'Scientific American',
+        cost: '$4.00',
+        category_id: 9,
+        frequency: 'monthly',
+        start_timestamp: '1630297328170', 
+        stop_timestamp: '1630297328170'
+      };
+      
+      const data = await fakeRequest(app)
+        .put('/api/recurring/2')
+        .send(updatedRecurringPurchase)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(data.body).toEqual(expectation);
+    });
+
     afterAll(done => {
       return client.end(done);
     });
