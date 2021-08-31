@@ -128,18 +128,18 @@ describe('app routes', () => {
       expect(data.body).toEqual(newPurchase);
     });
 
+    const newCategory = {
+      parent_id: 4, description: 'dog food', user_id: 1
+    };
     test('POST /categories for John', async()=> {
-      const expectation = {
-        parent_id: 4, description: 'dog food', user_id: 1
-      };
       const data = await fakeRequest(app)
         .post('/api/categories')
-        .send(expectation)
+        .send(newCategory)
         .set('Authorization', token)
         .expect('Content-Type', /json/)
         .expect(200);
       const { id, ...rest } = data.body;
-      expect(rest).toEqual(expectation);
+      expect(rest).toEqual(newCategory);
       expect(id).toBeGreaterThan(0);
     });
 
@@ -257,6 +257,17 @@ describe('app routes', () => {
         // .expect('Content-Type', /json/);
       expect(data.body).toEqual({ ...newPurchase, id: 8 });
       expect(data.body.id).toBeGreaterThan(0);
+    });
+
+    test('DELETE /categories deletes a category from the category array', async() => {
+      const data = await fakeRequest(app)
+        .delete('/api/categories/11')
+        .set('Authorization', token)
+        .expect(200)
+        .expect('Content-Type', /json/);
+      expect(data.body).toEqual({ ...newCategory, id: 11 });
+      expect(data.body.id).toBeGreaterThan(0);
+
     });
 
     afterAll(done => {
