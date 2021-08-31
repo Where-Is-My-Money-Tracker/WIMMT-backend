@@ -143,6 +143,101 @@ describe('app routes', () => {
       expect(id).toBeGreaterThan(0);
     });
 
+    test('GET /api/recurring route for John', async() => {
+      const expectation = [
+        {
+          id: 1,
+          user_id: 1,
+          description: 'eharmony membership',
+          cost: '$35.90',
+          category_id: 9,
+          frequency: 'monthly', // change this to a time in seconds
+          start_timestamp: '1630297328170',
+          stop_timestamp: '1630297328170' // change these times
+        },
+        {
+          id: 2,
+          user_id: 1,
+          description: 'Scientific American',
+          cost: '$0.00', // fill this in
+          category_id: 9,
+          frequency: 'monthly', // change this to a time in seconds
+          start_timestamp: '1630297328170', 
+          stop_timestamp: '1630297328170' // change these times
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/api/recurring')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('POST /recurring new subscription for john', async() => {
+
+      const expectation = {
+        id: 3,
+        user_id: 1,
+        description: 'Mens health magazine',
+        cost: '$39.96',
+        category_id: 9,
+        frequency: 'annual',
+        start_timestamp: '1630297328170',
+        stop_timestamp: '1630297328170'
+      };
+      const newRecurringPurchase = {
+        user_id: 1,
+        description: 'Mens health magazine',
+        cost: '$39.96',
+        category_id: 9,
+        frequency: 'annual',
+        start_timestamp: 1630297328170,
+        stop_timestamp: 1630297328170
+      };
+
+      const data = await fakeRequest(app)
+        .post('/api/recurring')
+        .send(newRecurringPurchase)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('PUT /recurring updates scientific american cost', async() => {
+      const updatedRecurringPurchase = {
+        user_id: 1,
+        description: 'Scientific American',
+        cost: '$4.00',
+        category_id: 9,
+        frequency: 'monthly',
+        start_timestamp: 1630297328170, 
+        stop_timestamp: 1630297328170
+      };
+      const expectation = {
+        id: 2,
+        user_id: 1,
+        description: 'Scientific American',
+        cost: '$4.00',
+        category_id: 9,
+        frequency: 'monthly',
+        start_timestamp: '1630297328170', 
+        stop_timestamp: '1630297328170'
+      };
+      
+      const data = await fakeRequest(app)
+        .put('/api/recurring/2')
+        .send(updatedRecurringPurchase)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(data.body).toEqual(expectation);
+    });
+
     afterAll(done => {
       return client.end(done);
     });
