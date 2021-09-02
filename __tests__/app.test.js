@@ -241,22 +241,13 @@ describe('app routes', () => {
     });
 
     test('DELETE /purchases deletes an object in the purchase array by query id', async() => {
-      // const deletedObject = {
-      //   user_id: 1,
-      //   description: 'More Hungry man TV dinner x 4',
-      //   category_id: 2,
-      //   timestamp: 1630297328170,
-      //   cost: 19.96
-      // };
       const data = await fakeRequest(app)
-        // .post('/api/purchases')
-        // .send(deletedObject)
+
         .delete('/api/purchases/8')
         .set('Authorization', token)
         .expect(200)
         .expect('Content-Type', /json/);
-        // .expect(200)
-        // .expect('Content-Type', /json/);
+
       expect(data.body).toEqual({ ...newPurchase, id: 8 });
       expect(data.body.id).toBeGreaterThan(0);
     });
