@@ -105,7 +105,8 @@ describe('app routes', () => {
         .expect(200);
 
       expect(data.body).toEqual(expectation);
-    });    
+    });
+
     const newPurchase = {
       id: 8,
       user_id: 1,
@@ -131,6 +132,7 @@ describe('app routes', () => {
     const newCategory = {
       parent_id: 4, description: 'dog food', user_id: 1
     };
+
     test('POST /categories for John', async()=> {
       const data = await fakeRequest(app)
         .post('/api/categories')
@@ -151,19 +153,19 @@ describe('app routes', () => {
           description: 'eharmony membership',
           cost: '$35.90',
           category_id: 9,
-          frequency: 'monthly', // change this to a time in seconds
-          start_timestamp: '1630297328170',
-          stop_timestamp: '1630297328170' // change these times
+          frequency: '2628000000',
+          start_timestamp: '1599069755674',
+          stop_timestamp: null 
         },
         {
           id: 2,
           user_id: 1,
           description: 'Scientific American',
-          cost: '$0.00', // fill this in
+          cost: '$14.99',
           category_id: 9,
-          frequency: 'monthly', // change this to a time in seconds
-          start_timestamp: '1630297328170', 
-          stop_timestamp: '1630297328170' // change these times
+          frequency: '2628000000',
+          start_timestamp: '1614837595129', 
+          stop_timestamp: '1627977529785'
         }
       ];
 
@@ -239,22 +241,13 @@ describe('app routes', () => {
     });
 
     test('DELETE /purchases deletes an object in the purchase array by query id', async() => {
-      // const deletedObject = {
-      //   user_id: 1,
-      //   description: 'More Hungry man TV dinner x 4',
-      //   category_id: 2,
-      //   timestamp: 1630297328170,
-      //   cost: 19.96
-      // };
       const data = await fakeRequest(app)
-        // .post('/api/purchases')
-        // .send(deletedObject)
+
         .delete('/api/purchases/8')
         .set('Authorization', token)
         .expect(200)
         .expect('Content-Type', /json/);
-        // .expect(200)
-        // .expect('Content-Type', /json/);
+
       expect(data.body).toEqual({ ...newPurchase, id: 8 });
       expect(data.body.id).toBeGreaterThan(0);
     });
