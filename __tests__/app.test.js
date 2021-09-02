@@ -105,7 +105,8 @@ describe('app routes', () => {
         .expect(200);
 
       expect(data.body).toEqual(expectation);
-    });    
+    });
+
     const newPurchase = {
       id: 8,
       user_id: 1,
@@ -131,6 +132,7 @@ describe('app routes', () => {
     const newCategory = {
       parent_id: 4, description: 'dog food', user_id: 1
     };
+
     test('POST /categories for John', async()=> {
       const data = await fakeRequest(app)
         .post('/api/categories')
@@ -151,19 +153,19 @@ describe('app routes', () => {
           description: 'eharmony membership',
           cost: '$35.90',
           category_id: 9,
-          frequency: 'monthly', // change this to a time in seconds
-          start_timestamp: '1630297328170',
-          stop_timestamp: '1630297328170' // change these times
+          frequency: '2628000000',
+          start_timestamp: '1599069755674',
+          stop_timestamp: null 
         },
         {
           id: 2,
           user_id: 1,
           description: 'Scientific American',
-          cost: '$0.00', // fill this in
+          cost: '$14.99',
           category_id: 9,
-          frequency: 'monthly', // change this to a time in seconds
-          start_timestamp: '1630297328170', 
-          stop_timestamp: '1630297328170' // change these times
+          frequency: '2628000000',
+          start_timestamp: '1614837595129', 
+          stop_timestamp: '1627977529785'
         }
       ];
 
