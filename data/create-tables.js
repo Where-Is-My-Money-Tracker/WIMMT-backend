@@ -36,7 +36,7 @@ async function run() {
         cost MONEY NOT NULL,
         description VARCHAR(512) NOT NULL,
         start_timestamp BIGINT NOT NULL,
-        stop_timestamp BIGINT NOT NULL,
+        stop_timestamp BIGINT,
         frequency VARCHAR(512) NOT NULL,
         category_id INTEGER NOT NULL REFERENCES categories(id),
         user_id INTEGER NOT NULL REFERENCES users(id)
