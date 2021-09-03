@@ -58,5 +58,35 @@ module.exports = [
     parent_id: 0,
     description: 'Self improvement',
     user_id: 1
+  },
+  {
+    id: 11,
+    parent_id: 0,
+    description: 'housing',
+    user_id: 1
+  },
+  {
+    id: 12,
+    parent_id: 0,
+    description: 'bills',
+    user_id: 1
+  },
+  {
+    id: 13,
+    parent_id: 1,
+    description: 'groceries',
+    user_id: 1
+  },
+  {
+    id: 14,
+    parent_id: 0,
+    description: 'medical',
+    user_id: 1
+  },
+  {
+    id: 15,
+    parent_id: 0,
+    description: 'transportation',
+    user_id: 1
   }
 ];
