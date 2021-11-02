@@ -117,7 +117,6 @@ describe("app routes", () => {
                 .set("Authorization", token)
                 .expect("Content-Type", /json/)
                 .expect(200);
-            a;
 
             expect(data.body).toEqual(
                 expect.arrayContaining([
